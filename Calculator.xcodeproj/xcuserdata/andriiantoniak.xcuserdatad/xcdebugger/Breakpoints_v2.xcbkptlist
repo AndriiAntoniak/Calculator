@@ -65,38 +65,6 @@
             endingLineNumber = "163"
             landmarkName = "StringSeparator(_:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PaigeViewController.CalculatorBrain.StringSeparator(Swift.String) -&gt; Swift.Array&lt;Swift.String&gt;"
-                  moduleName = "PaigeViewController"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andriiantoniak/Desktop/PaigeViewController/PaigeViewController/CalculatorBrain.swift"
-                  timestampString = "529517553.333189"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "129"
-                  endingLineNumber = "129"
-                  offsetFromSymbolStart = "36">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Character) -&gt; Swift.Bool in PaigeViewController.CalculatorBrain.StringSeparator(Swift.String) -&gt; Swift.Array&lt;Swift.String&gt;"
-                  moduleName = "PaigeViewController"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/andriiantoniak/Desktop/PaigeViewController/PaigeViewController/CalculatorBrain.swift"
-                  timestampString = "529517553.337269"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "129"
-                  endingLineNumber = "129"
-                  offsetFromSymbolStart = "12">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -176,6 +144,22 @@
             startingLineNumber = "131"
             endingLineNumber = "131"
             landmarkName = "ReversePolandNotation(tokens:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Calculator/CalculatorModel/CalculatorBrain.swift"
+            timestampString = "530192618.752529"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
+            landmarkName = "Facrotial(value:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
