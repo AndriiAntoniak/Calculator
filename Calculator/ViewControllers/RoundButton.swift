@@ -22,7 +22,7 @@ import UIKit
         }
     }
     
-    func updateCornerRadius() {
+     func updateCornerRadius() {
         layer.cornerRadius = rounded ? frame.size.height / 2 : 0
     }
     func shake (){
@@ -41,7 +41,7 @@ import UIKit
         
         layer.add(animation, forKey: nil)
     }
-    func pulse(){
+     func pulse(){
         let animation = CABasicAnimation(keyPath: "transform.scale")
         animation.duration = 0.3
         animation.fromValue = 0.95

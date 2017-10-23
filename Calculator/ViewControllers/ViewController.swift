@@ -17,7 +17,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     
     
     //
-    func digitPressed(_ value: MyButton){
+     func digitPressed(_ value: MyButton){
         let printValue = brain.digit(value.currentTitle!)
         if brain.buttonAnimation(){
             value.pulse()

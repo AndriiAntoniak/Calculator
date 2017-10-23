@@ -448,7 +448,6 @@ class CalculatorBrain: CalculatorInterface {
         }
         return storeValue
     }
-    //TODO:  label(count of elements) , = like last operation
     
     
     func factorial(_ factorial: Factorial)->String{
@@ -519,6 +518,6 @@ class CalculatorBrain: CalculatorInterface {
         return animation
     }
 
-
+    //TODO: accesing for my metods private internal etc
 
 }
