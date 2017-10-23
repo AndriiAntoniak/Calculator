@@ -9,11 +9,11 @@
 import Foundation
 
 protocol InputInterfaceDelegate	{
-    func DigitPressed(_ value: MyButton)
-    func OperationPressed(_ operation: MyButton)
-    func FunctionPressed(_ function: MyButton)
-    func UtilityPressed(_ utility: MyButton)
-    func MemoryPressed(_ memory: MyButton)
-    func FactorialPressed(_ factorial: MyButton)
-    func ConstantsPressed(_ constants: MyButton)
+    func digitPressed(_ value: MyButton)
+    func operationPressed(_ operation: MyButton)
+    func functionPressed(_ function: MyButton)
+    func utilityPressed(_ utility: MyButton)
+    func memoryPressed(_ memory: MyButton)
+    func factorialPressed(_ factorial: MyButton)
+    func constantsPressed(_ constants: MyButton)
 }

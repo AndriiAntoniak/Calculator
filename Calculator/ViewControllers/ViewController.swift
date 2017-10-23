@@ -17,67 +17,74 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     
     
     //
-    func DigitPressed(_ value: MyButton){
+    func digitPressed(_ value: MyButton){
         let printValue = brain.digit(value.currentTitle!)
-        if brain.Animation(){
+        if brain.buttonAnimation(){
             value.pulse()
         }else{
             value.shake()
+            playClick()
         }
         outputController?.display(printValue)
     }
-    func OperationPressed(_ operation: MyButton){
+    func operationPressed(_ operation: MyButton){
         let printValue = brain.operation(Operation(rawValue: operation.currentTitle!)!)
-        if brain.Animation(){
+        if brain.buttonAnimation(){
             operation.pulse()
         }else{
             operation.shake()
+            playClick()
         }
         outputController?.display(printValue)
     }
-    func FunctionPressed(_ function: MyButton){
+    func functionPressed(_ function: MyButton){
         let printValue = brain.function(Function(rawValue: function.currentTitle!)!)
-        if brain.Animation(){
+        if brain.buttonAnimation(){
             function.pulse()
         }else{
             function.shake()
+            playClick()
         }
         outputController?.display(printValue)
     }
-    func UtilityPressed(_ utility: MyButton){
+    func utilityPressed(_ utility: MyButton){
         let printValue = brain.utility(Utility(rawValue: utility.currentTitle!)!)
-        if brain.Animation(){
+        if brain.buttonAnimation(){
             utility.pulse()
         }else{
             utility.shake()
+            playClick()
         }
         outputController?.display(printValue)
     }
-    func MemoryPressed(_ memory: MyButton){
+    func memoryPressed(_ memory: MyButton){
         let printValue = brain.memory(Memory(rawValue: memory.currentTitle!)!)
-        if brain.Animation(){
+        if brain.buttonAnimation(){
             memory.pulse()
         }else{
             memory.shake()
         }
+        playClick()
         outputController?.display(printValue)
     }
-    func FactorialPressed(_ factorial: MyButton){
+    func factorialPressed(_ factorial: MyButton){
         let printValue = brain.factorial(Factorial(rawValue: factorial.currentTitle!)!)
-        if brain.Animation(){
+        if brain.buttonAnimation(){
             factorial.pulse()
         }else{
             playClick()
             factorial.shake()
+            playClick()
         }
         outputController?.display(printValue)
     }
-    func ConstantsPressed(_ constants: MyButton){
+    func constantsPressed(_ constants: MyButton){
         let printValue = brain.constants(Constants(rawValue: constants.currentTitle!)!)
-        if brain.Animation(){
+        if brain.buttonAnimation(){
             constants.pulse()
         }else{
             constants.shake()
+            playClick()
         }
         outputController?.display(printValue)
     }

@@ -21,7 +21,7 @@ enum Factorial: String{
     case fact    = "!"
 }
 enum Function: String {
-    case sqrt    = "√"
+    case sqrt    = "sqrt"
     case sin     = "sin"
     case cos     = "cos"
     case tan     = "tan"

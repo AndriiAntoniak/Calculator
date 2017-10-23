@@ -25,6 +25,4 @@ protocol CalculatorInterface {
     //
     func factorial(_ factorial: Factorial)->String
     func constants(_ constants: Constants)->String
-    //
-    var resultClosure: ((Double?, Error?) -> Void)? { get set }
 }

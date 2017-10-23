@@ -154,12 +154,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calculator/CalculatorModel/CalculatorBrain.swift"
-            timestampString = "530192618.752529"
+            timestampString = "530447559.977296"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "Facrotial(value:)"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
+            landmarkName = "factorial(value:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Calculator/CalculatorModel/CalculatorBrain.swift"
+            timestampString = "530447559.977637"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
+            landmarkName = "memory(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

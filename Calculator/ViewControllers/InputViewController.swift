@@ -15,19 +15,19 @@ class InputViewController: UIViewController,InputInterface{
     func symbolPressed(_ symbol: MyButton){
         
         if let _ = Utility(rawValue: symbol.currentTitle!){
-                delegate?.UtilityPressed(symbol)
+                delegate?.utilityPressed(symbol)
         }else if let _ = Factorial(rawValue: symbol.currentTitle!){
-            delegate?.FactorialPressed(symbol)
+            delegate?.factorialPressed(symbol)
         }else if let _ = Function(rawValue: symbol.currentTitle!){
-            delegate?.FunctionPressed(symbol)
+            delegate?.functionPressed(symbol)
         }else if let _ = Memory(rawValue: symbol.currentTitle!){
-            delegate?.MemoryPressed(symbol)
+            delegate?.memoryPressed(symbol)
         }else if let _ = Constants(rawValue: symbol.currentTitle!){
-            delegate?.ConstantsPressed(symbol)
+            delegate?.constantsPressed(symbol)
         }else if let _ = Operation(rawValue: symbol.currentTitle!){
-            delegate?.OperationPressed(symbol)
+            delegate?.operationPressed(symbol)
         }else{
-            delegate?.DigitPressed(symbol)
+            delegate?.digitPressed(symbol)
         }
     }
     
