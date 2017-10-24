@@ -697,21 +697,6 @@
             </objects>
             <point key="canvasLocation" x="-946.37681159420299" y="358.28804347826087"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="hg6-me-auQ">
-            <objects>
-                <viewController id="V5f-GY-ue9" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="GUC-B0-pmP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <viewLayoutGuide key="safeArea" id="CAq-ZL-N3Y"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1le-yo-Vqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1053.6231884057972" y="41.576086956521742"/>
-        </scene>
         <!--Output View Controller-->
         <scene sceneID="4Lw-d3-x3s">
             <objects>
@@ -720,7 +705,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="171"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kij-qR-h3D" userLabel="display">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="kij-qR-h3D" userLabel="display">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="171"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

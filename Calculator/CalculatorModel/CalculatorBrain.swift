@@ -260,6 +260,8 @@ class CalculatorBrain: CalculatorInterface {
                         dotSecurity = true
                     }else if temp == " )" || temp == ")"{
                         openBrackets += 1
+                    } else if temp == " (" || temp == "(" || temp.count > 2{
+                        openBrackets -= 1
                     }
                     if history.isEmpty{
                         storeValue = "0"

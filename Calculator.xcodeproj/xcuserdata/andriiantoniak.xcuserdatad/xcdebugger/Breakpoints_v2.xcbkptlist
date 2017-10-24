@@ -154,7 +154,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calculator/CalculatorModel/CalculatorBrain.swift"
-            timestampString = "530469235.500251"
+            timestampString = "530549412.656799"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "195"
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calculator/CalculatorModel/CalculatorBrain.swift"
-            timestampString = "530469235.500335"
+            timestampString = "530549412.657361"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
             landmarkName = "memory(_:)"
             landmarkType = "7">
          </BreakpointContent>
