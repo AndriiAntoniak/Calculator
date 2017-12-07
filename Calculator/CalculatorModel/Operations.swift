@@ -17,9 +17,10 @@ enum Operation: String {
     case percent = "%"
 }
 
-enum Factorial: String{
+enum Factorial: String {
     case fact    = "!"
 }
+
 enum Function: String {
     case sqrt    = "sqrt"
     case sin     = "sin"

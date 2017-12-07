@@ -22,7 +22,6 @@ protocol CalculatorInterface {
     func function(_ function: Function)->String
     func memory(_ memory: Memory)->String
     func utility(_ utility: Utility)->String
-    //
     func factorial(_ factorial: Factorial)->String
     func constants(_ constants: Constants)->String
 }

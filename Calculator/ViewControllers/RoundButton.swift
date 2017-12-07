@@ -8,11 +8,10 @@
 
 import UIKit
 
-@IBDesignable class MyButton: UIButton
-{
+@IBDesignable class MyButton: UIButton {
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         updateCornerRadius()
     }
     

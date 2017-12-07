@@ -10,24 +10,27 @@ import Foundation
 
 class CalculatorBrain: CalculatorInterface {
     
-   // private var
     private var storeValue = "0"
+    
     private var previousCame:String? = "0"
+    
     private var dotSecurity = true
+    
     private var openBrackets = 0
+    
     private var animation = true
+    
     private var result = false
+    
     private var error = false
-    //private array for history?
+    
     private var history:[String] = []
     
     //function for calc my expression after pressed =
-    func performOperation()->String{
-        //
+    func performOperation()->String {
         if openBrackets == 0 {
             let varForTry =  try? calculatePostfixNotation(expression: storeValue)
-            if varForTry == Double.infinity{
-                //
+            if varForTry == Double.infinity {
                 history.removeAll()
                 storeValue = "0"
                 previousCame = "0"
@@ -35,10 +38,7 @@ class CalculatorBrain: CalculatorInterface {
                 error = true
                 animation = false
                 return "infinity"
-                //
-                //animation = false
-            }else if varForTry!.isNaN{
-                //
+            }else if varForTry!.isNaN {
                 history.removeAll()
                 storeValue = "0"
                 previousCame = "0"
@@ -46,14 +46,10 @@ class CalculatorBrain: CalculatorInterface {
                 error = true
                 animation = false
                 return "not a number"
-                //
-                //animation = false
-            }
-            else
-            {
+            }else {
                 history.removeAll()
-                var temp = decimalpoint(varForTry!)
-                for i in temp.characters{
+                let temp = decimalpoint(varForTry!)
+                for i in temp{
                     history.append(String(i))
                     previousCame = String(i)
                 }
@@ -83,22 +79,22 @@ class CalculatorBrain: CalculatorInterface {
     }
     
     // function for calculation my expression
-    func calculatePostfixNotation (expression str: String) throws ->Double{
+    func calculatePostfixNotation (expression str: String) throws ->Double {
         let rpn = reversePolandNotation(tokens: stringSeparator(str))
         var stack: [String] = [] // store digit
-        for token in rpn{
+        for token in rpn {
             if Double(token) != nil{
                 stack += [token]
-            }else if !stack.isEmpty && (token == Function.cos.rawValue || token == Factorial.fact.rawValue || token == Function.ln.rawValue || token == Function.lg.rawValue || token == Function.sin.rawValue || token == Function.tan.rawValue || token == Function.sqrt.rawValue  ){
-                if let operand = Double(stack.removeLast()){
-                    switch token{
+            }else if !stack.isEmpty && (token == Function.cos.rawValue || token == Factorial.fact.rawValue || token == Function.ln.rawValue || token == Function.lg.rawValue || token == Function.sin.rawValue || token == Function.tan.rawValue || token == Function.sqrt.rawValue  ) {
+                if let operand = Double(stack.removeLast()) {
+                    switch token {
                     case Function.cos.rawValue: stack += [String(cos(operand))]
                     case Factorial.fact.rawValue:
-                        if Double(operand) <= 170.0 && Double(operand) >= 0.0{
+                        if Double(operand) <= 170.0 && Double(operand) >= 0.0 {
                         stack += [String(format:"%g" , factorial(value: Double(operand)))]
-                        }else if Double(operand) > 170.0{
+                        }else if Double(operand) > 170.0 {
                             stack += [String(Double.infinity)]
-                        }else{
+                        }else {
                             stack += [String(Double.nan)]
                         }
                     case Function.ln.rawValue: stack += [String(log(operand))]
@@ -109,10 +105,10 @@ class CalculatorBrain: CalculatorInterface {
                     default:break
                     }
                 }
-            }else{
+            }else {
                 if stack.count > 1 {
-                    if let secondOperand = Double(stack.removeLast()), let firstOperand = Double(stack.removeLast()){
-                        switch token{
+                    if let secondOperand = Double(stack.removeLast()), let firstOperand = Double(stack.removeLast()) {
+                        switch token {
                         case Operation.percent.rawValue: stack += [String((firstOperand / 100) * secondOperand)]
                         case Operation.plus.rawValue: stack += [String(firstOperand + secondOperand)]
                         case Operation.minus.rawValue: stack += [String(firstOperand - secondOperand)]
@@ -122,7 +118,7 @@ class CalculatorBrain: CalculatorInterface {
                         default: break
                         }
                     }
-                }else{
+                }else {
                     return 0.0
                 }
             }
@@ -131,10 +127,9 @@ class CalculatorBrain: CalculatorInterface {
     }
     
     // function for reverse my function
-    func reversePolandNotation(tokens:[String])->[String]{
+    func reversePolandNotation(tokens:[String])->[String] {
         var rpn : [String]   = [] // buffer for expression
         var stack : [String] = [] // buffer for operation
-        
         //prioritise my operations
         let operationPriority : Dictionary <String,Int> = [
             Operation.plus.rawValue:2,
@@ -151,25 +146,23 @@ class CalculatorBrain: CalculatorInterface {
             Factorial.fact.rawValue:6,
             Operation.percent.rawValue:3,
         ]
-        
         //filling rpn-array and drop brackets
-    
-        for token in tokens{
-            switch token{
+        for token in tokens {
+            switch token {
             case Utility.leftBracket.rawValue: stack += [token]
             case Utility.rightBracket.rawValue:
-                while !stack.isEmpty{
+                while !stack.isEmpty {
                     let temp = stack.removeLast()
-                    if temp == Utility.leftBracket.rawValue{
+                    if temp == Utility.leftBracket.rawValue {
                         break
                     }else{
                         rpn += [temp]
                     }
                 }
             default:
-                if let firstOperand = operationPriority[token]{
-                    for temp in stack.reversed(){
-                        if let secondOperand = operationPriority[temp], !(firstOperand > secondOperand){
+                if let firstOperand = operationPriority[token] {
+                    for temp in stack.reversed() {
+                        if let secondOperand = operationPriority[temp], !(firstOperand > secondOperand) {
                             rpn += [stack.removeLast()]
                             continue
                         }
@@ -186,22 +179,22 @@ class CalculatorBrain: CalculatorInterface {
     
     //string by characters
     func stringSeparator(_ equationStr: String) -> [String] {
-        let tokens = equationStr.characters.split{ $0 == " " }.map(String.init)
+        let tokens = equationStr.split{ $0 == " " }.map(String.init)
         return tokens
     }
     
     //calculate factorial of number function
-    func factorial(value temp:Double)->Double{
+    func factorial(value temp:Double)->Double {
         return temp > 1.0 ? (temp * factorial(value: temp-1)) : 1.0
     }
 	
-    //Calculator interface
+    //MARK: Validations
     
     //process digit
-    func digit(_ value: String)->String{
+    func digit(_ value: String)->String {
         
         let temp = String(value)
-        if result || error{
+        if result || error {
             storeValue = temp
             previousCame = temp
             history.removeAll()
@@ -212,32 +205,29 @@ class CalculatorBrain: CalculatorInterface {
             previousCame = temp
             history.append(previousCame!)
             
-        }else if storeValue == "-0"{
+        }else if storeValue == "-0" {
             storeValue = "-" + temp
             previousCame = temp
             history.removeLast()
             history.append(previousCame!)
-        }else if Int(previousCame!) != nil || previousCame == Utility.dot.rawValue || previousCame! == "±"{
+        }else if Int(previousCame!) != nil || previousCame == Utility.dot.rawValue || previousCame! == "±" {
             storeValue += temp
             previousCame = temp
             history.append(previousCame!)
-        }else if previousCame != Utility.rightBracket.rawValue{
+        }else if previousCame != Utility.rightBracket.rawValue {
             storeValue += " " + temp
             previousCame = temp
             history.append(" \(previousCame!)")
-        }else{
+        }else {
             animation = false
         }
         error = false
         return storeValue
     }
     
-    
-    
-    
     //process memory
-    func memory(_ memory: Memory)->String{
-        switch memory{
+    func memory(_ memory: Memory)->String {
+        switch memory {
         case .allclean:
             storeValue = "0"
             previousCame = "0"
@@ -246,40 +236,40 @@ class CalculatorBrain: CalculatorInterface {
             history.removeAll()
             result = false
         case .clean:
-            if result || error{
+            if result || error {
                 storeValue = "0"
                 previousCame = "0"
                 dotSecurity = true
                 openBrackets = 0
                 history.removeAll()
                 result = false
-            }else{
-                if !history.isEmpty{
+            }else {
+                if !history.isEmpty {
                     let temp = history.removeLast()
-                    if temp == Utility.dot.rawValue{
+                    if temp == Utility.dot.rawValue {
                         dotSecurity = true
-                    }else if temp == " )" || temp == ")"{
+                    }else if temp == " )" || temp == ")" {
                         openBrackets += 1
-                    } else if temp == " (" || temp == "(" || temp.count > 2{
+                    } else if temp == " (" || temp == "(" || temp.count > 2 {
                         openBrackets -= 1
                     }
-                    if history.isEmpty{
+                    if history.isEmpty {
                         storeValue = "0"
                         previousCame = "0"
                         dotSecurity = true
                         openBrackets = 0
-                    }else{
+                    }else {
                         var temp = history
                         storeValue=temp.removeFirst()
-                        while !temp.isEmpty{
+                        while !temp.isEmpty {
                             storeValue+=temp.removeFirst()
                         }
-                        for i in storeValue.characters.reversed(){
+                        for i in storeValue.reversed() {
                             previousCame! = String(i)
                             break
                         }
                         var temp1 = history
-                        if temp1.removeLast() == Utility.dot.rawValue && temp1.isEmpty{
+                        if temp1.removeLast() == Utility.dot.rawValue && temp1.isEmpty {
                             storeValue = "0"
                             previousCame = "0"
                             dotSecurity = true
@@ -294,9 +284,9 @@ class CalculatorBrain: CalculatorInterface {
     }
     
     // process operations + - * / ^ %
-    func operation(_ operation: Operation)->String{
+    func operation(_ operation: Operation)->String {
         let temp = String(describing: operation.rawValue)
-        if  !error && Int(previousCame!) != nil || previousCame! == Utility.rightBracket.rawValue || previousCame! == Factorial.fact.rawValue || previousCame! == Constants.e.rawValue || previousCame! == Constants.pi.rawValue{
+        if  !error && Int(previousCame!) != nil || previousCame! == Utility.rightBracket.rawValue || previousCame! == Factorial.fact.rawValue || previousCame! == Constants.e.rawValue || previousCame! == Constants.pi.rawValue {
             storeValue += " " + temp
             history.append(" \(temp)")
             previousCame = temp
@@ -308,16 +298,17 @@ class CalculatorBrain: CalculatorInterface {
             previousCame = temp
             dotSecurity = true
             history.append(" \(temp)")
-        }else{
+        }else {
             animation = false
         }
         result = false
         return storeValue
     }
+    
     //process function cos sin tan ...
-    func function(_ function: Function)->String{
+    func function(_ function: Function)->String {
         let temp = String(describing: function.rawValue)
-        if result || error{
+        if result || error {
             storeValue = temp + " ("
             history.removeAll()
             history.append("\(temp) (")
@@ -338,30 +329,31 @@ class CalculatorBrain: CalculatorInterface {
             dotSecurity = true
             previousCame = "("
             history.append(" \(temp) (")
-        }else{
+        }else {
             animation = false
         }
         return storeValue
     }
+    
     //process utility
-    func utility(_ utility: Utility)->String{
+    func utility(_ utility: Utility)->String {
         let temp = String(describing: utility.rawValue)
-        switch temp{
+        switch temp {
         case ".":
-            if  Int(previousCame!) != nil && !result{
+            if  Int(previousCame!) != nil && !result {
                 if dotSecurity{
                     previousCame = temp
                     storeValue += temp
                     history.append(temp)
                     dotSecurity = false
-                }else{
+                }else {
                     animation = false
                 }
-            }else{
+            }else {
                 animation = false
             }
         case "(":
-            if result || error{
+            if result || error {
                 storeValue = temp
                 previousCame = temp
                 history.removeAll()
@@ -376,60 +368,60 @@ class CalculatorBrain: CalculatorInterface {
                 history.append(temp)
                 openBrackets += 1
                 dotSecurity = true
-            }else if previousCame! != "!" && previousCame! != ")" && Int(previousCame!) == nil && previousCame! != "."{
+            }else if previousCame! != "!" && previousCame! != ")" && Int(previousCame!) == nil && previousCame! != "." {
                 storeValue += " " + temp
                 history.append(" \(temp)")
                 previousCame = temp
                 openBrackets += 1
                 dotSecurity = true
-            }else{
+            }else {
                 animation = false
             }
         case ")":
-            if (previousCame! == "!" || previousCame! == ")" || Int(previousCame!) != nil) && openBrackets > 0{
+            if (previousCame! == "!" || previousCame! == ")" || Int(previousCame!) != nil) && openBrackets > 0 {
                 storeValue += " " + temp
                 previousCame = temp
                 openBrackets -= 1
                 dotSecurity = true
                 history.append(" \(temp)")
-            }else{
+            }else {
                 animation = false
             }
         case "=":
-            if previousCame! != "+" && previousCame! != "-" && previousCame! != "^" && previousCame! != "x" && previousCame! != "/" && previousCame! != "%" && previousCame! != "(" && previousCame! != "±"{
+            if previousCame! != "+" && previousCame! != "-" && previousCame! != "^" && previousCame! != "x" && previousCame! != "/" && previousCame! != "%" && previousCame! != "(" && previousCame! != "±" {
                 storeValue = performOperation()
-            }else if result{
+            }else if result {
                 //TODO second press = must be HERE
-            }else{
+            }else {
                animation = false
             }
         case "±":
-            if storeValue == "0" && !error{
+            if storeValue == "0" && !error {
                 storeValue = "-0"
                 previousCame = "0"
                 history.append("-")
                 history.append("0")
                 dotSecurity = true
-            }else if storeValue == "-0"{
+            }else if storeValue == "-0" {
                 storeValue = "0"
                 previousCame = "0"
                 history.removeAll()
                 history.append("0")
                 dotSecurity = true
-            }else if previousCame == "±"{
+            }else if previousCame == "±" {
                 var last = ""
-                for i in history.reversed(){
+                for i in history.reversed() {
                     last = i
                     break
                 }
-                if last == " -"{
+                if last == " -" {
                     storeValue.removeLast()
                     storeValue += "+"
                     history.removeLast()
                     history.append(" +")
                     previousCame = "±"
                     dotSecurity = true
-                }else{
+                }else {
                     storeValue.removeLast()
                     storeValue += "-"
                     history.removeLast()
@@ -437,40 +429,39 @@ class CalculatorBrain: CalculatorInterface {
                     previousCame = "±"
                     dotSecurity = true
                 }
-            }else if previousCame! == "+" || previousCame! == "-" || previousCame! == "^" || previousCame! == "x" || previousCame! == "/" || previousCame! == "%" || previousCame! == "("{
+            }else if previousCame! == "+" || previousCame! == "-" || previousCame! == "^" || previousCame! == "x" || previousCame! == "/" || previousCame! == "%" || previousCame! == "(" {
                 storeValue += " -"
                 history.append(" -")
                 previousCame = "±"
                 dotSecurity = true
-            }else{
+            }else {
                 animation = false
             }
-            
         default: break
         }
         return storeValue
     }
     
-    
-    func factorial(_ factorial: Factorial)->String{
+    func factorial(_ factorial: Factorial)->String {
         let temp = String(describing: factorial.rawValue)
-        if let _ = Int(previousCame!){
+        if let _ = Int(previousCame!) {
             storeValue += " " + temp
             dotSecurity = true
             previousCame = temp
             history.append(" \(temp)")
             result = false
-        }else if previousCame! == "π" || previousCame! == "e"{
+        }else if previousCame! == "π" || previousCame! == "e" {
             storeValue += " " + temp
             dotSecurity = true
             previousCame = temp
             history.append(" \(temp)")
-        }else{
+        }else {
             animation = false
         }
         return storeValue
     }
-    func constants(_ constants: Constants)->String{
+    
+    func constants(_ constants: Constants)->String {
         //
         let temp = String(describing: constants.rawValue)
         var newOperand:String? = "0"
@@ -486,40 +477,33 @@ class CalculatorBrain: CalculatorInterface {
             dotSecurity = false
             history.append(" \(newOperand!)")
             previousCame = String(newOperand!.removeLast())
-        }else if storeValue == "0" || error{
+        }else if storeValue == "0" || error {
             storeValue = newOperand!
             dotSecurity = false
             history.append("\(newOperand!)")
             previousCame = String(newOperand!.removeLast())
-        }else if result{
+        }else if result {
             storeValue = newOperand!
             dotSecurity = false
             history.removeAll()
             history.append("\(newOperand!)")
             previousCame = String(newOperand!.removeLast())
             result = false
-        }else if previousCame! == "±"{
+        }else if previousCame! == "±" {
             storeValue += newOperand!
             dotSecurity = false
             history.append("\(newOperand!)")
             previousCame = String(newOperand!.removeLast())
-        }else{            animation = false
+        }else {
+            animation = false
         }
         return storeValue
     }
     
-    
-    
-   
-    
-    //function for choosen of animation
-    public func buttonAnimation()->Bool{
-        defer{
+    public func buttonAnimation()->Bool {
+        defer {
             animation = true
         }
         return animation
     }
-
-    //TODO: accesing for my metods private internal etc
-
 }
