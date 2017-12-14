@@ -13,7 +13,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     
     var outputController: OutputViewController? = nil
     
-    private var brain = CalculatorBrain()
+    private var validator = CalculatorValidator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,8 +31,8 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     }
     
     func digitPressed(_ value: MyButton) {
-        let printValue = brain.digit(value.currentTitle!)
-        if brain.buttonAnimation() {
+        let printValue = validator.digit(value.currentTitle!)
+        if validator.buttonAnimation() {
             value.pulse()
         }else {
             value.shake()
@@ -42,8 +42,8 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     }
     
     func operationPressed(_ operation: MyButton) {
-        let printValue = brain.operation(Operation(rawValue: operation.currentTitle!)!)
-        if brain.buttonAnimation() {
+        let printValue = validator.operation(Operation(rawValue: operation.currentTitle!)!)
+        if validator.buttonAnimation() {
             operation.pulse()
         }else {
             operation.shake()
@@ -53,8 +53,8 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     }
     
     func functionPressed(_ function: MyButton) {
-        let printValue = brain.function(Function(rawValue: function.currentTitle!)!)
-        if brain.buttonAnimation() {
+        let printValue = validator.function(Function(rawValue: function.currentTitle!)!)
+        if validator.buttonAnimation() {
             function.pulse()
         }else {
             function.shake()
@@ -64,8 +64,8 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     }
     
     func utilityPressed(_ utility: MyButton) {
-        let printValue = brain.utility(Utility(rawValue: utility.currentTitle!)!)
-        if brain.buttonAnimation() {
+        let printValue = validator.utility(Utility(rawValue: utility.currentTitle!)!)
+        if validator.buttonAnimation() {
             utility.pulse()
         }else {
             utility.shake()
@@ -75,8 +75,8 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     }
     
     func memoryPressed(_ memory: MyButton) {
-        let printValue = brain.memory(Memory(rawValue: memory.currentTitle!)!)
-        if brain.buttonAnimation() {
+        let printValue = validator.memory(Memory(rawValue: memory.currentTitle!)!)
+        if validator.buttonAnimation() {
             memory.pulse()
         }else {
             memory.shake()
@@ -86,8 +86,8 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     }
     
     func factorialPressed(_ factorial: MyButton) {
-        let printValue = brain.factorial(Factorial(rawValue: factorial.currentTitle!)!)
-        if brain.buttonAnimation() {
+        let printValue = validator.factorial(Factorial(rawValue: factorial.currentTitle!)!)
+        if validator.buttonAnimation() {
             factorial.pulse()
         }else {
             playClick()
@@ -98,8 +98,8 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     }
     
     func constantsPressed(_ constants: MyButton) {
-        let printValue = brain.constants(Constants(rawValue: constants.currentTitle!)!)
-        if brain.buttonAnimation() {
+        let printValue = validator.constants(Constants(rawValue: constants.currentTitle!)!)
+        if validator.buttonAnimation() {
             constants.pulse()
         }else {
             constants.shake()
@@ -112,4 +112,3 @@ class ViewController: UIViewController,InputInterfaceDelegate {
         AudioServicesPlaySystemSound(1104)
     } 
 }
-

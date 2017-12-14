@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B3920FF1FE2F69D0061BEFE /* CalculatorValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3920FE1FE2F69D0061BEFE /* CalculatorValidator.swift */; };
 		2BC5C41C1F8E17F600D2DFC9 /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5C41B1F8E17F600D2DFC9 /* InputViewController.swift */; };
 		2BC5C41E1F8E180700D2DFC9 /* OutputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5C41D1F8E180700D2DFC9 /* OutputViewController.swift */; };
 		2BC5C4211F8E181A00D2DFC9 /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC5C4201F8E181A00D2DFC9 /* CalculatorBrain.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B3920FE1FE2F69D0061BEFE /* CalculatorValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorValidator.swift; sourceTree = "<group>"; };
 		2BC5C41B1F8E17F600D2DFC9 /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		2BC5C41D1F8E180700D2DFC9 /* OutputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutputViewController.swift; sourceTree = "<group>"; };
 		2BC5C4201F8E181A00D2DFC9 /* CalculatorBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				2BC5C4201F8E181A00D2DFC9 /* CalculatorBrain.swift */,
+				2B3920FE1FE2F69D0061BEFE /* CalculatorValidator.swift */,
 				2BC5C4241F8E1E2500D2DFC9 /* Protocols.swift */,
 				2BC5C4261F8E1E5E00D2DFC9 /* Operations.swift */,
 			);
@@ -197,6 +200,7 @@
 				2BDD20501F8649E8006BE745 /* ViewController.swift in Sources */,
 				2BDD204E1F8649E8006BE745 /* AppDelegate.swift in Sources */,
 				2BC5C41C1F8E17F600D2DFC9 /* InputViewController.swift in Sources */,
+				2B3920FF1FE2F69D0061BEFE /* CalculatorValidator.swift in Sources */,
 				2BC5C4251F8E1E2500D2DFC9 /* Protocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

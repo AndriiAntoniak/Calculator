@@ -21,26 +21,23 @@ import UIKit
         }
     }
     
-     func updateCornerRadius() {
+    func updateCornerRadius() {
         layer.cornerRadius = rounded ? frame.size.height / 2 : 0
     }
-    func shake (){
+    func shake () {
         let animation = CABasicAnimation(keyPath: "position")
-       animation.duration = 0.1
+        animation.duration = 0.1
         animation.repeatCount = 2
         animation.autoreverses = true
-        
         let fromPoint = CGPoint(x: center.x - 5, y: center.y)
         let fromValue = NSValue(cgPoint: fromPoint)
-        
         let toPoint = CGPoint(x: center.x + 5, y: center.y)
         let toValue = NSValue(cgPoint: toPoint)
         animation.fromValue = fromValue
         animation.toValue = toValue
-        
         layer.add(animation, forKey: nil)
     }
-     func pulse(){
+    func pulse() {
         let animation = CABasicAnimation(keyPath: "transform.scale")
         animation.duration = 0.3
         animation.fromValue = 0.95

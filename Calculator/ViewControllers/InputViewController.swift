@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InputViewController: UIViewController,InputInterface {
+class InputViewController: UIViewController, InputInterface {
    
     var delegate: InputInterfaceDelegate?
     
@@ -18,7 +18,7 @@ class InputViewController: UIViewController,InputInterface {
         }
     }
     
-    @IBAction func ButtonPressed(_ sender: MyButton) {
+    @IBAction func buttonPressed(_ sender: MyButton) {
         symbolPressed(sender)
     }
     
@@ -26,17 +26,17 @@ class InputViewController: UIViewController,InputInterface {
         
         if let _ = Utility(rawValue: symbol.currentTitle!) {
                 delegate?.utilityPressed(symbol)
-        }else if let _ = Factorial(rawValue: symbol.currentTitle!) {
+        } else if let _ = Factorial(rawValue: symbol.currentTitle!) {
             delegate?.factorialPressed(symbol)
-        }else if let _ = Function(rawValue: symbol.currentTitle!) {
+        } else if let _ = Function(rawValue: symbol.currentTitle!) {
             delegate?.functionPressed(symbol)
-        }else if let _ = Memory(rawValue: symbol.currentTitle!) {
+        } else if let _ = Memory(rawValue: symbol.currentTitle!) {
             delegate?.memoryPressed(symbol)
-        }else if let _ = Constants(rawValue: symbol.currentTitle!) {
+        } else if let _ = Constants(rawValue: symbol.currentTitle!) {
             delegate?.constantsPressed(symbol)
-        }else if let _ = Operation(rawValue: symbol.currentTitle!) {
+        } else if let _ = Operation(rawValue: symbol.currentTitle!) {
             delegate?.operationPressed(symbol)
-        }else {
+        } else {
             delegate?.digitPressed(symbol)
         }
     }
