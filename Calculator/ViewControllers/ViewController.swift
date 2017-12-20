@@ -11,9 +11,38 @@ import UIKit
 
 class ViewController: UIViewController,InputInterfaceDelegate {
     
+    
+    var anim = false
+    
+    @IBAction func animationSwitcher(_ sender: UIButton) {
+    //    delegateVar?.animationThread(anim ? false : true)
+     
+           inputController?.animationThread(anim ? false : true)
+   //
+       
+        defer {
+            anim = anim ? false : true
+        }
+        print(anim)
+    }
+    
     var outputController: OutputViewController? = nil
     
+    //
+    var inputController: InputViewController?
+    //
+    
     private var validator = CalculatorValidator()
+    
+    
+    //
+    
+    
+    
+    
+    
+    
+    //
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,8 +51,11 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "InputSegue"{
-            let destinationVC=segue.destination as! InputViewController
-            destinationVC.delegate = self
+          inputController = segue.destination as? InputViewController
+            inputController?.delegate = self
+            
+            //  let destinationVC=segue.destination as! InputViewController
+          //  destinationVC.delegate = self
         }
         else if segue.identifier == "OutputSegue"{
             outputController = segue.destination as? OutputViewController

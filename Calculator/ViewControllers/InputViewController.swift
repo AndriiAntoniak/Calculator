@@ -9,7 +9,38 @@
 import UIKit
 
 class InputViewController: UIViewController, InputInterface {
-   
+    
+     var thread = DispatchQueue.global(qos: .background)
+    
+    var lol : Bool!
+    
+       func animationThread(_ swither: Bool) {
+        switch swither {
+        case true:
+            
+            
+            lol =  true
+            thread.async {
+                while self.lol {
+                    print(1)
+                    DispatchQueue.main.async {
+                        self.sevenButton.backgroundColor = UIColor(red: CGFloat(arc4random()) / CGFloat(UINT32_MAX), green: CGFloat(arc4random()) / CGFloat(UINT32_MAX), blue: CGFloat(arc4random()) / CGFloat(UINT32_MAX), alpha: 1)
+                    }
+                 //   sleep(1)
+                    usleep(500000)
+                }
+                print("thread")
+            }
+
+        case false:
+            lol =  false
+            sevenButton.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        }
+    }
+    
+  
+    
+    
     var delegate: InputInterfaceDelegate?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -22,8 +53,25 @@ class InputViewController: UIViewController, InputInterface {
         symbolPressed(sender)
     }
     
+    
+    //
+    
+    @IBOutlet weak var sevenButton: MyButton!
+    
+    
+    
+    //
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+//        print("DID LOAD")
+//        if lol != nil {
+//            animationThread(lol)
+//        }
+    }
+    
+    
     func symbolPressed(_ symbol: MyButton) {
-        
         if let _ = Utility(rawValue: symbol.currentTitle!) {
                 delegate?.utilityPressed(symbol)
         } else if let _ = Factorial(rawValue: symbol.currentTitle!) {
