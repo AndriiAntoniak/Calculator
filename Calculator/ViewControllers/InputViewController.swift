@@ -10,38 +10,18 @@ import UIKit
 
 class InputViewController: UIViewController, InputInterface {
     
-     var thread = DispatchQueue.global(qos: .background)
+    @IBOutlet var calculatorWhiteButton: [MyButton]!
+    
+    var delegate: InputInterfaceDelegate?
+    
+    var thread = DispatchQueue.global(qos: .background)
     
     var lol : Bool!
     
-       func animationThread(_ swither: Bool) {
-        switch swither {
-        case true:
-            
-            
-            lol =  true
-            thread.async {
-                while self.lol {
-                    print(1)
-                    DispatchQueue.main.async {
-                        self.sevenButton.backgroundColor = UIColor(red: CGFloat(arc4random()) / CGFloat(UINT32_MAX), green: CGFloat(arc4random()) / CGFloat(UINT32_MAX), blue: CGFloat(arc4random()) / CGFloat(UINT32_MAX), alpha: 1)
-                    }
-                 //   sleep(1)
-                    usleep(500000)
-                }
-                print("thread")
-            }
-
-        case false:
-            lol =  false
-            sevenButton.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print(calculatorWhiteButton.count)
     }
-    
-  
-    
-    
-    var delegate: InputInterfaceDelegate?
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destination = segue.destination as? InputViewController {
@@ -53,27 +33,32 @@ class InputViewController: UIViewController, InputInterface {
         symbolPressed(sender)
     }
     
-    
-    //
-    
-    @IBOutlet weak var sevenButton: MyButton!
-    
-    
-    
-    //
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        print("DID LOAD")
-//        if lol != nil {
-//            animationThread(lol)
-//        }
+    func animationThread(_ swither: Bool) {
+        switch swither {
+        case true:
+            lol =  true
+            thread.async {
+                while self.lol {
+                    print(1)
+                    DispatchQueue.main.async {
+                        let i = Int(arc4random()) % self.calculatorWhiteButton.count
+                        self.calculatorWhiteButton[i].backgroundColor = UIColor(red: CGFloat(arc4random()) / CGFloat(UINT32_MAX), green: CGFloat(arc4random()) / CGFloat(UINT32_MAX), blue: CGFloat(arc4random()) / CGFloat(UINT32_MAX), alpha: 1)
+                        self.calculatorWhiteButton[i].pulse()
+                    }
+                    usleep(500000)
+                }
+            }
+        case false:
+            lol =  false
+            for button in calculatorWhiteButton {
+                button.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            }
+        }
     }
-    
     
     func symbolPressed(_ symbol: MyButton) {
         if let _ = Utility(rawValue: symbol.currentTitle!) {
-                delegate?.utilityPressed(symbol)
+            delegate?.utilityPressed(symbol)
         } else if let _ = Factorial(rawValue: symbol.currentTitle!) {
             delegate?.factorialPressed(symbol)
         } else if let _ = Function(rawValue: symbol.currentTitle!) {

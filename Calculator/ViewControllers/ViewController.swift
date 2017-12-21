@@ -11,55 +11,67 @@ import UIKit
 
 class ViewController: UIViewController,InputInterfaceDelegate {
     
-    
-    var anim = false
-    
-    @IBAction func animationSwitcher(_ sender: UIButton) {
-    //    delegateVar?.animationThread(anim ? false : true)
-     
-           inputController?.animationThread(anim ? false : true)
-   //
-       
-        defer {
-            anim = anim ? false : true
-        }
-        print(anim)
-    }
-    
-    var outputController: OutputViewController? = nil
-    
-    //
-    var inputController: InputViewController?
-    //
+    @IBOutlet weak var soundButton: UIButton!
     
     private var validator = CalculatorValidator()
     
+    private var outputController: OutputViewController?
     
-    //
+    private var inputController: InputViewController?
     
+    private var anim = false
     
-    
-    
-    
-    
-    //
+    private var sound = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let defaults = UserDefaults.standard
+        let soundDefault = defaults.object(forKey: "currentSound") as! Bool?
+        if let _ = soundDefault {
+            switch soundDefault {
+            case true?: soundButton.setImage(#imageLiteral(resourceName: "soundOn32"), for: .normal)
+            case false?: soundButton.setImage(#imageLiteral(resourceName: "soundOff32"), for: .normal)
+            case .none:
+                soundButton.setImage(#imageLiteral(resourceName: "soundOn32"), for: .normal)
+                defaults.set(true,forKey: "currentSound")
+            }
+            sound = soundDefault!
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "InputSegue"{
+        if segue.identifier == "InputSegue" {
           inputController = segue.destination as? InputViewController
             inputController?.delegate = self
-            
-            //  let destinationVC=segue.destination as! InputViewController
-          //  destinationVC.delegate = self
         }
-        else if segue.identifier == "OutputSegue"{
+        else if segue.identifier == "OutputSegue" {
             outputController = segue.destination as? OutputViewController
         }
+    }
+    
+    @IBAction func animationSwitch(_ sender: UIButton) {
+        defer {
+            anim = anim ? false : true
+        }
+        inputController?.animationThread(anim ? false : true)
+        usleep(5000)
+        inputController?.animationThread(anim ? false : true)
+        usleep(5000)
+        inputController?.animationThread(anim ? false : true)
+    }
+    
+    @IBAction func soundSwitch(_ sender: UIButton) {
+        let defaults = UserDefaults.standard
+        if  sender.currentImage == #imageLiteral(resourceName: "soundOn32") {
+            sender.setImage(#imageLiteral(resourceName: "soundOff32"), for: .normal)
+            defaults.set(false,forKey: "currentSound")
+        } else {
+            sender.setImage(#imageLiteral(resourceName: "soundOn32"), for: .normal)
+            defaults.set(true,forKey: "currentSound")
+        }
+        let soundDefault = defaults.object(forKey: "currentSound") as! Bool?
+        sound = soundDefault!
     }
     
     func digitPressed(_ value: MyButton) {
@@ -68,7 +80,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
             value.pulse()
         }else {
             value.shake()
-            playClick()
+            checkForSound()
         }
         outputController?.display(printValue)
     }
@@ -79,7 +91,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
             operation.pulse()
         }else {
             operation.shake()
-            playClick()
+            checkForSound()
         }
         outputController?.display(printValue)
     }
@@ -90,7 +102,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
             function.pulse()
         }else {
             function.shake()
-            playClick()
+            checkForSound()
         }
         outputController?.display(printValue)
     }
@@ -101,7 +113,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
             utility.pulse()
         }else {
             utility.shake()
-            playClick()
+            checkForSound()
         }
         outputController?.display(printValue)
     }
@@ -113,7 +125,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
         }else {
             memory.shake()
         }
-        playClick()
+        checkForSound()
         outputController?.display(printValue)
     }
     
@@ -122,9 +134,9 @@ class ViewController: UIViewController,InputInterfaceDelegate {
         if validator.buttonAnimation() {
             factorial.pulse()
         }else {
-            playClick()
+            checkForSound()
             factorial.shake()
-            playClick()
+            checkForSound()
         }
         outputController?.display(printValue)
     }
@@ -135,12 +147,18 @@ class ViewController: UIViewController,InputInterfaceDelegate {
             constants.pulse()
         }else {
             constants.shake()
-            playClick()
+            checkForSound()
         }
         outputController?.display(printValue)
     }
     
-    private func playClick(){
+    private func checkForSound() {
+        if sound {
+            playClick()
+        }
+    }
+    
+    private func playClick() {
         AudioServicesPlaySystemSound(1104)
     } 
 }
