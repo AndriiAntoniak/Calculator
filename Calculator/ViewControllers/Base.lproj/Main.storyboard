@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -41,29 +42,42 @@
                                     <segue destination="ecM-yE-r7I" kind="embed" identifier="OutputSegue" id="2Cl-Uc-wag"/>
                                 </connections>
                             </containerView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="vUY-nR-O63">
-                                <rect key="frame" x="0.0" y="20" width="32" height="129.5"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="vUY-nR-O63" userLabel="Settings Stack View">
+                                <rect key="frame" x="0.0" y="20" width="65" height="129.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mXC-7d-LNh">
-                                        <rect key="frame" x="0.0" y="0.0" width="32" height="63.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="65" height="63.5"/>
                                         <state key="normal" image="color32"/>
                                         <connections>
                                             <action selector="animationSwitch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JUM-Pn-jya"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eZP-5g-CrG">
-                                        <rect key="frame" x="0.0" y="66.5" width="32" height="63"/>
+                                        <rect key="frame" x="0.0" y="66.5" width="65" height="63"/>
+                                        <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
                                         <state key="normal" image="soundOn32"/>
                                         <connections>
                                             <action selector="soundSwitch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jm1-eT-WXR"/>
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="vUY-nR-O63" secondAttribute="height" multiplier="1:2" id="O78-Bk-i10"/>
+                                </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HaT-SS-gYJ">
+                                <rect key="frame" x="65" y="53" width="65" height="65"/>
+                                <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
+                                <state key="normal" image="settings32"/>
+                                <connections>
+                                    <action selector="settingsSwitch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="shY-St-LaG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="bMz-8Y-hEq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0ew-1D-akM"/>
+                            <constraint firstItem="HaT-SS-gYJ" firstAttribute="width" secondItem="vUY-nR-O63" secondAttribute="width" id="4W1-i2-Ywd"/>
                             <constraint firstItem="gSM-zg-sJ9" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="5E3-2H-LEm"/>
                             <constraint firstItem="gSM-zg-sJ9" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="7CX-nA-8WT"/>
                             <constraint firstItem="FyO-PZ-Zh5" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="7Sn-Uy-PLa"/>
@@ -74,19 +88,24 @@
                             <constraint firstItem="gSM-zg-sJ9" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="IAh-JH-rbj"/>
                             <constraint firstItem="gSM-zg-sJ9" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Qx4-Lx-1y1"/>
                             <constraint firstItem="vUY-nR-O63" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="UOY-t4-8SQ"/>
+                            <constraint firstItem="HaT-SS-gYJ" firstAttribute="height" secondItem="vUY-nR-O63" secondAttribute="height" multiplier="0.5" id="Xn0-iL-RXK"/>
                             <constraint firstItem="aDp-rY-Qb4" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="YpQ-jr-PT9"/>
                             <constraint firstItem="FyO-PZ-Zh5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aBs-Ix-znn"/>
                             <constraint firstItem="aDp-rY-Qb4" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="bQb-iY-nec"/>
                             <constraint firstItem="aDp-rY-Qb4" firstAttribute="top" secondItem="bMz-8Y-hEq" secondAttribute="bottom" id="fmc-Xr-KkB"/>
+                            <constraint firstItem="HaT-SS-gYJ" firstAttribute="leading" secondItem="vUY-nR-O63" secondAttribute="trailing" id="fvg-Gs-qUH"/>
                             <constraint firstItem="bMz-8Y-hEq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jta-2b-Vd1"/>
                             <constraint firstItem="vUY-nR-O63" firstAttribute="height" secondItem="bMz-8Y-hEq" secondAttribute="height" id="nju-Nx-kKW"/>
                             <constraint firstItem="bMz-8Y-hEq" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.2" id="oIN-4n-nhn"/>
                             <constraint firstItem="aDp-rY-Qb4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="utI-qe-T1q"/>
                             <constraint firstItem="bMz-8Y-hEq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="wMQ-MH-A35"/>
+                            <constraint firstItem="HaT-SS-gYJ" firstAttribute="centerY" secondItem="vUY-nR-O63" secondAttribute="centerY" id="wzr-c9-gZ5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="leadingSettingsConstraint" destination="Dtq-Xb-8DN" id="uJe-bd-Sg9"/>
+                        <outlet property="settingsButton" destination="HaT-SS-gYJ" id="gCk-ea-RYt"/>
                         <outlet property="soundButton" destination="eZP-5g-CrG" id="kXg-50-QHF"/>
                     </connections>
                 </viewController>
@@ -765,6 +784,7 @@
                         <color key="tintColor" red="0.84684244789999996" green="0.19007703989999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="kij-qR-h3D" secondAttribute="trailing" id="D0m-to-mjl"/>
+                            <constraint firstItem="kij-qR-h3D" firstAttribute="height" secondItem="6QC-mx-Zqk" secondAttribute="height" id="H7Z-UF-aLp"/>
                             <constraint firstAttribute="bottom" secondItem="kij-qR-h3D" secondAttribute="bottom" id="J17-7D-Jvb"/>
                             <constraint firstItem="kij-qR-h3D" firstAttribute="leading" secondItem="Azu-y7-3cu" secondAttribute="leading" id="XGZ-pt-yCS"/>
                             <constraint firstItem="kij-qR-h3D" firstAttribute="top" secondItem="Azu-y7-3cu" secondAttribute="top" id="pF9-J8-Kt0"/>
@@ -773,6 +793,7 @@
                     </view>
                     <connections>
                         <outlet property="display" destination="kij-qR-h3D" id="DdZ-Ic-5iC"/>
+                        <outlet property="leadingDispayConstraint" destination="XGZ-pt-yCS" id="0WD-YB-QHo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kGV-A8-e5R" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -783,6 +804,7 @@
     <resources>
         <image name="color32" width="32" height="32"/>
         <image name="red-white" width="142" height="88"/>
+        <image name="settings32" width="32" height="32"/>
         <image name="soundOn32" width="32" height="32"/>
     </resources>
 </document>

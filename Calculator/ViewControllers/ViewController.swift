@@ -11,6 +11,10 @@ import UIKit
 
 class ViewController: UIViewController,InputInterfaceDelegate {
     
+    @IBOutlet weak var leadingSettingsConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var settingsButton: UIButton!
+  
     @IBOutlet weak var soundButton: UIButton!
     
     private var validator = CalculatorValidator()
@@ -25,7 +29,9 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //
+        leadingSettingsConstraint.constant = -soundButton.frame.width
+        //
         let defaults = UserDefaults.standard
         let soundDefault = defaults.object(forKey: "currentSound") as! Bool?
         if let _ = soundDefault {
@@ -72,6 +78,17 @@ class ViewController: UIViewController,InputInterfaceDelegate {
         }
         let soundDefault = defaults.object(forKey: "currentSound") as! Bool?
         sound = soundDefault!
+    }
+    
+    @IBAction func settingsSwitch(_ sender: UIButton) {
+        if leadingSettingsConstraint.constant != 0 {
+            self.leadingSettingsConstraint.constant = 0
+        } else {
+            leadingSettingsConstraint.constant = -soundButton.frame.width
+        }
+        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
     
     func digitPressed(_ value: MyButton) {

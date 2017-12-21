@@ -10,7 +10,14 @@ import UIKit
 
 class OutputViewController: UIViewController, OutputInterface  {
     
+    @IBOutlet private weak var leadingDispayConstraint: NSLayoutConstraint!
+    
     @IBOutlet private weak var display: UILabel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        leadingDispayConstraint.constant = display.frame.height / 2
+    }
     
     func display(_ result: String) {
         display.text = result
