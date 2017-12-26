@@ -17,7 +17,7 @@ class CalculatorBrain {
         for token in rpn {
             if Double(token) != nil {
                 stack += [token]
-            } else if !stack.isEmpty && (token == Function.cos.rawValue || token == Factorial.fact.rawValue || token == Function.ln.rawValue || token == Function.lg.rawValue || token == Function.sin.rawValue || token == Function.tan.rawValue || token == Function.sqrt.rawValue  ) {
+            } else if !stack.isEmpty && Function(rawValue: token) != nil || token == Factorial.fact.rawValue {
                 if let operand = Double(stack.removeLast()) {
                     switch token {
                     case Function.cos.rawValue: stack += [String(cos(operand))]
@@ -59,7 +59,7 @@ class CalculatorBrain {
     }
     
     // function for reverse my function
-    func reversePolandNotation(tokens:[String])->[String] {
+    func reversePolandNotation(tokens:[String]) -> [String] {
         var rpn : [String]   = [] // buffer for expression
         var stack : [String] = [] // buffer for operation
         //prioritise my operations
@@ -76,7 +76,7 @@ class CalculatorBrain {
             Function.tan.rawValue:5,
             Function.sqrt.rawValue:5,
             Factorial.fact.rawValue:6,
-            Operation.percent.rawValue:3,
+            Operation.percent.rawValue:3
         ]
         //filling rpn-array and drop brackets
         for token in tokens {
@@ -87,7 +87,7 @@ class CalculatorBrain {
                     let temp = stack.removeLast()
                     if temp == Utility.leftBracket.rawValue {
                         break
-                    }else {
+                    } else {
                         rpn += [temp]
                     }
                 }
@@ -98,10 +98,10 @@ class CalculatorBrain {
                             rpn += [stack.removeLast()]
                             continue
                         }
-                        break;
+                        break
                     }
                     stack += [token]
-                } else{
+                } else {
                     rpn += [token]
                 }
             }
@@ -111,12 +111,12 @@ class CalculatorBrain {
     
     //string by characters
     func stringSeparator(_ equationStr: String) -> [String] {
-        let tokens = equationStr.split{ $0 == " " }.map(String.init)
+        let tokens = equationStr.split { $0 == " " }.map(String.init)
         return tokens
     }
     
     //calculate factorial of number function
-    func factorial(value temp:Double)->Double {
+    func factorial(value temp:Double) -> Double {
         return temp > 1.0 ? (temp * factorial(value: temp-1)) : 1.0
     }
 }

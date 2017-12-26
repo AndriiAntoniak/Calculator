@@ -15,7 +15,6 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     
     @IBOutlet weak var leadingSettingsOffConstraint: NSLayoutConstraint!
     
-    
     @IBOutlet weak var settingsButton: UIButton!
     
     @IBOutlet weak var soundButton: UIButton!
@@ -54,17 +53,14 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         settingsInitialConditions()
-        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .curveEaseOut, animations: {
-            self.view.layoutIfNeeded()
-        }, completion: nil)
+        animateConstraints()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "InputSegue" {
             inputController = segue.destination as? InputViewController
             inputController?.delegate = self
-        }
-        else if segue.identifier == "OutputSegue" {
+        } else if segue.identifier == "OutputSegue" {
             outputController = segue.destination as? OutputViewController
         }
     }
@@ -100,6 +96,10 @@ class ViewController: UIViewController,InputInterfaceDelegate {
             leadingSettingsOnConstraint.isActive = true
             leadingSettingsOffConstraint.isActive = false
         }
+        animateConstraints()
+    }
+    
+    func animateConstraints() {
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
@@ -115,7 +115,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
         let printValue = validator.digit(value.currentTitle!)
         if validator.buttonAnimation() {
             value.pulse()
-        }else {
+        } else {
             value.shake()
             checkForSound()
         }
@@ -126,7 +126,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
         let printValue = validator.operation(Operation(rawValue: operation.currentTitle!)!)
         if validator.buttonAnimation() {
             operation.pulse()
-        }else {
+        } else {
             operation.shake()
             checkForSound()
         }
@@ -137,7 +137,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
         let printValue = validator.function(Function(rawValue: function.currentTitle!)!)
         if validator.buttonAnimation() {
             function.pulse()
-        }else {
+        } else {
             function.shake()
             checkForSound()
         }
@@ -148,7 +148,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
         let printValue = validator.utility(Utility(rawValue: utility.currentTitle!)!)
         if validator.buttonAnimation() {
             utility.pulse()
-        }else {
+        } else {
             utility.shake()
             checkForSound()
         }
@@ -159,7 +159,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
         let printValue = validator.memory(Memory(rawValue: memory.currentTitle!)!)
         if validator.buttonAnimation() {
             memory.pulse()
-        }else {
+        } else {
             memory.shake()
         }
         checkForSound()
@@ -170,7 +170,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
         let printValue = validator.factorial(Factorial(rawValue: factorial.currentTitle!)!)
         if validator.buttonAnimation() {
             factorial.pulse()
-        }else {
+        } else {
             checkForSound()
             factorial.shake()
             checkForSound()
@@ -182,7 +182,7 @@ class ViewController: UIViewController,InputInterfaceDelegate {
         let printValue = validator.constants(Constants(rawValue: constants.currentTitle!)!)
         if validator.buttonAnimation() {
             constants.pulse()
-        }else {
+        } else {
             constants.shake()
             checkForSound()
         }
