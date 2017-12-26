@@ -63,12 +63,12 @@ class CalculatorValidator: CalculatorInterface {
     
     func operation(_ operation: Operation) -> String {
         let temp = String(describing: operation.rawValue)
-        if  !error && Int(previousCame!) != nil || previousCame! == Utility.rightBracket.rawValue || previousCame! == Factorial.fact.rawValue || previousCame! == Constants.e.rawValue || previousCame! == Constants.pi.rawValue {
+        if  !error && Int(previousCame!) != nil || previousCame! == ")" || isFactorial(previousCame!) || isConstants(previousCame!) {
             storeValue += " " + temp
             history.append(" \(temp)")
             previousCame = temp
             dotSecurity = true
-        } else if previousCame! == Operation.div.rawValue || previousCame! == Operation.exp.rawValue || previousCame! == Operation.minus.rawValue || previousCame! == Operation.mult.rawValue || previousCame! == Operation.percent.rawValue || previousCame! == Operation.plus.rawValue {
+        } else if Operation(rawValue: previousCame!) != nil {
             storeValue.removeLast()
             history.removeLast()
             storeValue += temp
@@ -80,6 +80,14 @@ class CalculatorValidator: CalculatorInterface {
         }
         result = false
         return storeValue
+    }
+    
+    func isConstants(_ text: String) -> Bool {
+        return Constants(rawValue: text) != nil ? true : false
+    }
+    
+    func isFactorial(_ text: String) -> Bool {
+        return Factorial(rawValue: text) != nil ? true : false
     }
     
     func function(_ function: Function) -> String {
@@ -172,7 +180,7 @@ class CalculatorValidator: CalculatorInterface {
         switch temp {
         case ".":
             if  Int(previousCame!) != nil && !result {
-                if dotSecurity{
+                if dotSecurity {
                     previousCame = temp
                     storeValue += temp
                     history.append(temp)
@@ -183,100 +191,103 @@ class CalculatorValidator: CalculatorInterface {
             } else {
                 animation = false
             }
+        case "(", ")":
+            bracketsPressed(temp)
+        case "=":
+            if Operation(rawValue: previousCame!) == nil && previousCame! != "(" && previousCame! != "±" {
+                storeValue = performEqualPressed()
+            } else {
+                animation = false
+            }
+        case "±":
+            signPressed()
+        default: break
+        }
+        return storeValue
+    }
+    
+    func signPressed() {
+        if storeValue == "0" && !error {
+            storeValue = "-0"
+            previousCame = "0"
+            history.append("-")
+            history.append("0")
+            dotSecurity = true
+        } else if storeValue == "-0" {
+            storeValue = "0"
+            previousCame = "0"
+            history.removeAll()
+            history.append("0")
+            dotSecurity = true
+        } else if previousCame == "±" {
+            var last = ""
+            for i in history.reversed() {
+                last = i
+                break
+            }
+            last = last == " -" ? "+" : "-"
+            storeValue.removeLast()
+            storeValue += "\(last)"
+            history.removeLast()
+            history.append(" \(last)")
+            previousCame = "±"
+            dotSecurity = true
+            last = " \(last)"
+        } else if Operation(rawValue: previousCame!) != nil || previousCame! == "(" {
+            storeValue += " -"
+            history.append(" -")
+            previousCame = "±"
+            dotSecurity = true
+        } else {
+            animation = false
+        }
+    }
+    
+    func bracketsPressed(_ bracket: String) {
+        switch bracket {
+        case ")":
+            if (previousCame! == "!" || previousCame! == ")" || Int(previousCame!) != nil) && openBrackets > 0 {
+                storeValue += " " + bracket
+                previousCame = bracket
+                openBrackets -= 1
+                dotSecurity = true
+                history.append(" \(bracket)")
+            } else {
+                animation = false
+            }
         case "(":
             if result || error {
-                storeValue = temp
-                previousCame = temp
+                storeValue = bracket
+                previousCame = bracket
                 history.removeAll()
-                history.append(temp)
+                history.append(bracket)
                 openBrackets += 1
                 dotSecurity = true
                 result = false
                 error = false
             } else if storeValue == "0" {
-                storeValue = temp
-                previousCame = temp
-                history.append(temp)
+                storeValue = bracket
+                previousCame = bracket
+                history.append(bracket)
                 openBrackets += 1
                 dotSecurity = true
             } else if previousCame! != "!" && previousCame! != ")" && Int(previousCame!) == nil && previousCame! != "." {
-                storeValue += " " + temp
-                history.append(" \(temp)")
-                previousCame = temp
+                storeValue += " " + bracket
+                history.append(" \(bracket)")
+                previousCame = bracket
                 openBrackets += 1
-                dotSecurity = true
-            } else {
-                animation = false
-            }
-        case ")":
-            if (previousCame! == "!" || previousCame! == ")" || Int(previousCame!) != nil) && openBrackets > 0 {
-                storeValue += " " + temp
-                previousCame = temp
-                openBrackets -= 1
-                dotSecurity = true
-                history.append(" \(temp)")
-            } else {
-                animation = false
-            }
-        case "=":
-            if previousCame! != "+" && previousCame! != "-" && previousCame! != "^" && previousCame! != "x" && previousCame! != "/" && previousCame! != "%" && previousCame! != "(" && previousCame! != "±" {
-                storeValue = performEqualPressed()
-            } else if result {
-                //TODO second press = must be HERE
-            } else {
-                animation = false
-            }
-        case "±":
-            if storeValue == "0" && !error {
-                storeValue = "-0"
-                previousCame = "0"
-                history.append("-")
-                history.append("0")
-                dotSecurity = true
-            } else if storeValue == "-0" {
-                storeValue = "0"
-                previousCame = "0"
-                history.removeAll()
-                history.append("0")
-                dotSecurity = true
-            } else if previousCame == "±" {
-                var last = ""
-                for i in history.reversed() {
-                    last = i
-                    break
-                }
-                if last == " -" {
-                    storeValue.removeLast()
-                    storeValue += "+"
-                    history.removeLast()
-                    history.append(" +")
-                    previousCame = "±"
-                    dotSecurity = true
-                } else {
-                    storeValue.removeLast()
-                    storeValue += "-"
-                    history.removeLast()
-                    history.append(" -")
-                    previousCame = "±"
-                    dotSecurity = true
-                }
-            } else if previousCame! == "+" || previousCame! == "-" || previousCame! == "^" || previousCame! == "x" || previousCame! == "/" || previousCame! == "%" || previousCame! == "(" {
-                storeValue += " -"
-                history.append(" -")
-                previousCame = "±"
                 dotSecurity = true
             } else {
                 animation = false
             }
         default: break
         }
-        return storeValue
     }
     
     func factorial(_ factorial: Factorial) -> String {
         
         let temp = String(describing: factorial.rawValue)
-        if let _ = Int(previousCame!) {
+        if Int(previousCame!) != nil {
             storeValue += " " + temp
             dotSecurity = true
             previousCame = temp
@@ -354,7 +365,7 @@ class CalculatorValidator: CalculatorInterface {
             } else {
                 history.removeAll()
                 let temp = decimalpoint(varForTry!)
-                for i in temp{
+                for i in temp {
                     history.append(String(i))
                     previousCame = String(i)
                 }
@@ -367,7 +378,7 @@ class CalculatorValidator: CalculatorInterface {
     }
     
     //function witch return resalt in int or double
-    func decimalpoint(_ doubleValue:Double)->String {
+    func decimalpoint(_ doubleValue:Double) -> String {
         if doubleValue < Double(Int.max) {
             let intValue = Int(doubleValue)
             if doubleValue != Double(intValue) {
@@ -383,7 +394,7 @@ class CalculatorValidator: CalculatorInterface {
         }
     }
     
-    public func buttonAnimation()->Bool {
+    public func buttonAnimation() -> Bool {
         defer {
             animation = true
         }
