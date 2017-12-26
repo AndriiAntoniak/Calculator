@@ -43,7 +43,7 @@
                                 </connections>
                             </containerView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="vUY-nR-O63" userLabel="Settings Stack View">
-                                <rect key="frame" x="0.0" y="20" width="65" height="129.5"/>
+                                <rect key="frame" x="-65" y="20" width="65" height="129.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mXC-7d-LNh">
                                         <rect key="frame" x="0.0" y="0.0" width="65" height="63.5"/>
@@ -66,7 +66,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HaT-SS-gYJ">
-                                <rect key="frame" x="65" y="53" width="65" height="65"/>
+                                <rect key="frame" x="0.0" y="53" width="64.5" height="65"/>
                                 <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="0.75" colorSpace="calibratedRGB"/>
                                 <state key="normal" image="settings32"/>
                                 <connections>
@@ -97,14 +97,21 @@
                             <constraint firstItem="bMz-8Y-hEq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="jta-2b-Vd1"/>
                             <constraint firstItem="vUY-nR-O63" firstAttribute="height" secondItem="bMz-8Y-hEq" secondAttribute="height" id="nju-Nx-kKW"/>
                             <constraint firstItem="bMz-8Y-hEq" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" multiplier="0.2" id="oIN-4n-nhn"/>
+                            <constraint firstItem="HaT-SS-gYJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sIN-Ms-3Qm"/>
                             <constraint firstItem="aDp-rY-Qb4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="utI-qe-T1q"/>
                             <constraint firstItem="bMz-8Y-hEq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="wMQ-MH-A35"/>
                             <constraint firstItem="HaT-SS-gYJ" firstAttribute="centerY" secondItem="vUY-nR-O63" secondAttribute="centerY" id="wzr-c9-gZ5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Dtq-Xb-8DN"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
-                        <outlet property="leadingSettingsConstraint" destination="Dtq-Xb-8DN" id="uJe-bd-Sg9"/>
+                        <outlet property="leadingSettingsOffConstraint" destination="sIN-Ms-3Qm" id="4gU-N1-Mpd"/>
+                        <outlet property="leadingSettingsOnConstraint" destination="Dtq-Xb-8DN" id="uJe-bd-Sg9"/>
                         <outlet property="settingsButton" destination="HaT-SS-gYJ" id="gCk-ea-RYt"/>
                         <outlet property="soundButton" destination="eZP-5g-CrG" id="kXg-50-QHF"/>
                     </connections>

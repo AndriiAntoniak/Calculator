@@ -11,10 +11,13 @@ import UIKit
 
 class ViewController: UIViewController,InputInterfaceDelegate {
     
-    @IBOutlet weak var leadingSettingsConstraint: NSLayoutConstraint!
+    @IBOutlet weak var leadingSettingsOnConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var leadingSettingsOffConstraint: NSLayoutConstraint!
+    
     
     @IBOutlet weak var settingsButton: UIButton!
-  
+    
     @IBOutlet weak var soundButton: UIButton!
     
     private var validator = CalculatorValidator()
@@ -27,28 +30,38 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     
     private var sound = true
     
+    private var isSettings = false
+    
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //
-        leadingSettingsConstraint.constant = -soundButton.frame.width
-        //
-        let defaults = UserDefaults.standard
-        let soundDefault = defaults.object(forKey: "currentSound") as! Bool?
-        if let _ = soundDefault {
-            switch soundDefault {
-            case true?: soundButton.setImage(#imageLiteral(resourceName: "soundOn32"), for: .normal)
-            case false?: soundButton.setImage(#imageLiteral(resourceName: "soundOff32"), for: .normal)
-            case .none:
-                soundButton.setImage(#imageLiteral(resourceName: "soundOn32"), for: .normal)
-                defaults.set(true,forKey: "currentSound")
-            }
-            sound = soundDefault!
+        let soundDefault = defaults.bool(forKey: "currentSound") //{
+        switch soundDefault {
+        case true:
+            soundButton.setImage(#imageLiteral(resourceName: "soundOn32"), for: .normal)
+            defaults.set(true,forKey: "currentSound")
+        case false:
+            soundButton.setImage(#imageLiteral(resourceName: "soundOff32"), for: .normal)
+            defaults.set(false,forKey: "currentSound")
         }
+        sound = defaults.bool(forKey: "currentSound")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        settingsInitialConditions()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        settingsInitialConditions()
+        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .curveEaseOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "InputSegue" {
-          inputController = segue.destination as? InputViewController
+            inputController = segue.destination as? InputViewController
             inputController?.delegate = self
         }
         else if segue.identifier == "OutputSegue" {
@@ -57,18 +70,15 @@ class ViewController: UIViewController,InputInterfaceDelegate {
     }
     
     @IBAction func animationSwitch(_ sender: UIButton) {
-        defer {
             anim = anim ? false : true
-        }
-        inputController?.animationThread(anim ? false : true)
+        inputController?.animationThread(anim)
         usleep(5000)
-        inputController?.animationThread(anim ? false : true)
+        inputController?.animationThread(anim)
         usleep(5000)
-        inputController?.animationThread(anim ? false : true)
+        inputController?.animationThread(anim)
     }
     
     @IBAction func soundSwitch(_ sender: UIButton) {
-        let defaults = UserDefaults.standard
         if  sender.currentImage == #imageLiteral(resourceName: "soundOn32") {
             sender.setImage(#imageLiteral(resourceName: "soundOff32"), for: .normal)
             defaults.set(false,forKey: "currentSound")
@@ -76,19 +86,29 @@ class ViewController: UIViewController,InputInterfaceDelegate {
             sender.setImage(#imageLiteral(resourceName: "soundOn32"), for: .normal)
             defaults.set(true,forKey: "currentSound")
         }
-        let soundDefault = defaults.object(forKey: "currentSound") as! Bool?
-        sound = soundDefault!
+        sound = defaults.bool(forKey: "currentSound")
     }
     
     @IBAction func settingsSwitch(_ sender: UIButton) {
-        if leadingSettingsConstraint.constant != 0 {
-            self.leadingSettingsConstraint.constant = 0
-        } else {
-            leadingSettingsConstraint.constant = -soundButton.frame.width
+        switch isSettings {
+        case true:
+            isSettings = false
+            leadingSettingsOnConstraint.isActive = false
+            leadingSettingsOffConstraint.isActive = true
+        case false:
+            isSettings = true
+            leadingSettingsOnConstraint.isActive = true
+            leadingSettingsOffConstraint.isActive = false
         }
         UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: .curveEaseOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)
+    }
+    
+    func settingsInitialConditions() {
+        isSettings = false
+        leadingSettingsOnConstraint.isActive = false
+        leadingSettingsOffConstraint.isActive = true
     }
     
     func digitPressed(_ value: MyButton) {

@@ -16,11 +16,10 @@ class InputViewController: UIViewController, InputInterface {
     
     var thread = DispatchQueue.global(qos: .background)
     
-    var lol : Bool!
+    var threadIsActive : Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(calculatorWhiteButton.count)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -33,25 +32,27 @@ class InputViewController: UIViewController, InputInterface {
         symbolPressed(sender)
     }
     
-    func animationThread(_ swither: Bool) {
-        switch swither {
+    func animationThread(_ animate: Bool) {
+        switch animate {
         case true:
-            lol =  true
+            threadIsActive =  true
             thread.async {
-                while self.lol {
-                    print(1)
+                while self.threadIsActive {
                     DispatchQueue.main.async {
                         let i = Int(arc4random()) % self.calculatorWhiteButton.count
-                        self.calculatorWhiteButton[i].backgroundColor = UIColor(red: CGFloat(arc4random()) / CGFloat(UINT32_MAX), green: CGFloat(arc4random()) / CGFloat(UINT32_MAX), blue: CGFloat(arc4random()) / CGFloat(UINT32_MAX), alpha: 1)
-                        self.calculatorWhiteButton[i].pulse()
+                        UIView.animate(withDuration: 1.0, animations: {
+                            self.calculatorWhiteButton[i].backgroundColor = UIColor(red: CGFloat(arc4random()) / CGFloat(UINT32_MAX), green: CGFloat(arc4random()) / CGFloat(UINT32_MAX), blue: CGFloat(arc4random()) / CGFloat(UINT32_MAX), alpha: 1)
+                            })
                     }
                     usleep(500000)
                 }
             }
         case false:
-            lol =  false
+            threadIsActive =  false
             for button in calculatorWhiteButton {
-                button.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                UIView.animate(withDuration: 1.0, animations: {
+                    button.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+                })
             }
         }
     }
